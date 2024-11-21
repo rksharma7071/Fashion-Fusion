@@ -142,9 +142,9 @@ function AddProducts() {
     console.log("Form Data:", updatedFormData);
 
     try {
-      console.log("formData: ", formData);
+      console.log("formData: ", updatedFormData);
 
-      const docRef = await addDoc(collection(db, "Products"), formData);
+      const docRef = await addDoc(collection(db, "Products"), updatedFormData);
       console.log("Document written with ID: ", docRef.id);
     } catch (err) {
       console.error("Error adding document: ", err);

@@ -16,6 +16,7 @@ function ProductList({products}) {
               <th className="border border-gray-300 px-4 py-2">Description</th>
               <th className="border border-gray-300 px-4 py-2">Price</th>
               <th className="border border-gray-300 px-4 py-2">Category</th>
+              <th className="border border-gray-300 px-4 py-2">Variants</th>
               <th className="border border-gray-300 px-4 py-2">Tags</th>
             </tr>
           </thead>
@@ -36,6 +37,26 @@ function ProductList({products}) {
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {product.category?.join(", ")}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {product.variants && Object.keys(product.variants).length > 0 ? (
+                    <div className="space-y-2">
+                      {Object.entries(product.variants).map(([variantName, values]) => (
+                        <div key={variantName} className="bg-gray-100 p-2 rounded-md">
+                          <h4 className="font-semibold text-gray-700 text-sm">
+                            {variantName}:
+                          </h4>
+                          <ul className="list-disc list-inside text-gray-600 text-sm">
+                            {values.map((value, index) => (
+                              <li key={index}>{value}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-gray-500 text-sm">No variants available</span>
+                  )}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {product.tags?.join(", ")}
