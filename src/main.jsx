@@ -7,6 +7,11 @@ import Login from "./components/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import Home from "./components/Home.jsx";
 import Profile from "./components/Profile.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import Base from "./components/Base.jsx";
+import Products from "./components/Products.jsx";
+import Customers from "./components/Customers.jsx";
+import Orders from "./components/Orders.jsx";
 
 const router = createBrowserRouter(
   [
@@ -15,12 +20,38 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         {
-          path:'/register',
-          element:<Register/>,
+          path:'/',
+          element:<Home/>
+        },
+      ]
+    },
+    {
+      path:'/register',
+      element:<Register/>,
+    },
+    {
+      path:'/login',
+      element:<Login/>,
+    },
+    {
+      path:'/',
+      element: <Base/>,
+      children:[
+        {
+          path:'/dashboard',
+          element:<Dashboard/>,
         },
         {
-          path:'/login',
-          element:<Login/>,
+          path:'/products',
+          element:<Products/>,
+        },
+        {
+          path:'/customers',
+          element:<Customers/>,
+        },
+        {
+          path:'/orders',
+          element:<Orders/>,
         },
         {
           path:'/profile',
@@ -28,10 +59,6 @@ const router = createBrowserRouter(
         },
       ]
     },
-    {
-      path:'/home',
-      element:<Home/>
-    }
     
   ],
   {

@@ -3,7 +3,7 @@ import { app, db } from "../firebase/Firebase";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -102,6 +102,8 @@ function Register() {
         <br />
         <br />
         <button type="submit">Register</button>
+        <p>Already have an account? <Link to={'/login'}>Log in here</Link></p>
+
       </form>
     </div>
   );

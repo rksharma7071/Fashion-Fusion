@@ -1,31 +1,61 @@
-import React, { useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { db } from "../firebase/Firebase";
+import Logout from "./Logout";
 
 function Profile() {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const user = useAuth();
+
+  const uid = localStorage.getItem("uid"); // Retrieve UID from local storage
 
   useEffect(() => {
-    if (user) {
-      // navigate("/profile");
-    } else {
-      navigate("/login");
+    if (!uid) {
+      navigate("/login"); // Redirect if no UID is found
+      return;
     }
-  }, [user, navigate]);
+
+    const fetchUserData = async () => {
+      try {
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        } else {
+          console.log("No user data found.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [uid, navigate]);
+
+  if (loading) return <p>Loading...</p>;
+
   return (
     <div>
-      Profile
-      <h1>Welcome to the {user ? user.email : ""}</h1>
-      {user ? (
-        <>
-          <Logout />
-        </>
+      <h1>Welcome to your profile!</h1>
+      {userData ? (
+        <div>
+          <h2>User Details:</h2>
+          <p>
+            <strong>Name:</strong> {userData.name || "Not provided"}
+          </p>
+          <p>
+            <strong>Email:</strong> {userData.email || "Not provided"}
+          </p>
+        </div>
       ) : (
-        <p>
-          Please log in.<Link to={"/login"}>Login</Link>
-        </p>
+        <p>No user data available.</p>
       )}
+      <Logout />
     </div>
   );
 }
