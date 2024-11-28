@@ -52,7 +52,7 @@ function Collections() {
   }, [formUpdate]);
 
   useEffect(() => {
-    console.log(search);
+    setSearch(search)
   }, [search])
   return (
     <>
@@ -129,7 +129,7 @@ function Collections() {
             <button onClick={() => setAddPop(!addPop)} className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600">Add Collection</button>
           </div>
         </div>
-        <CollectionList collections={collections} setCollections={setCollections} formUpdate={formUpdate} setFormUpdate={setFormUpdate} />
+        <CollectionList search={search} collections={collections} setCollections={setCollections} formUpdate={formUpdate} setFormUpdate={setFormUpdate} />
       </div>
     </>
   )

@@ -2,7 +2,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { app, db } from "../firebase/Firebase";
 
-function CustomerList({ users, setUsers, formUpdate, setFormUpdate }) {
+function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editUser, setEditUser] = useState({});
 
@@ -66,7 +66,13 @@ function CustomerList({ users, setUsers, formUpdate, setFormUpdate }) {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users
+              .filter((user) =>
+                user.name.toLowerCase().includes(search.toLowerCase()) ||
+                user.email.toLowerCase().includes(search.toLowerCase()) ||
+                user.phone.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((user) => (
               <tr key={user.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="w-4 p-4">
                   <div className="flex items-center">

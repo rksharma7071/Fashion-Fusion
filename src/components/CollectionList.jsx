@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { db } from '../firebase/Firebase';
 import { collection, addDoc, getDocs, serverTimestamp, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
-export default function CollectionList({ collections, setCollections, formUpdate, setFormUpdate }) {
+export default function CollectionList({ search, collections, setCollections, formUpdate, setFormUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editCollection, setEditCollection] = useState({});
 
@@ -66,37 +66,42 @@ export default function CollectionList({ collections, setCollections, formUpdate
             </tr>
           </thead>
           <tbody>
-            {collections.map((collection) => (
-              <tr key={collection.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                    <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                  </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {collection.title}
-                </th>
-                <td className="px-6 py-4">
-                  {collection.description}
-                </td>
-                <td className="px-6 py-4 flex items-center space-x-4">
-                  <button onClick={() => handleEdit(collection)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 2l6 6-6 6M8 12l-6 6 6 6"></path>
-                    </svg>
-                    Edit
-                  </button>
+            {collections
+              .filter((collection) =>
+                collection.title.toLowerCase().includes(search.toLowerCase()) ||
+                collection.description.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((collection) => (
+                <tr key={collection.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                      <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                    </div>
+                  </td>
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {collection.title}
+                  </th>
+                  <td className="px-6 py-4">
+                    {collection.description}
+                  </td>
+                  <td className="px-6 py-4 flex items-center space-x-4">
+                    <button onClick={() => handleEdit(collection)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 2l6 6-6 6M8 12l-6 6 6 6"></path>
+                      </svg>
+                      Edit
+                    </button>
 
-                  <button onClick={() => handleDelete(collection.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Delete</button>
-                </td>
+                    <button onClick={() => handleDelete(collection.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                      Delete</button>
+                  </td>
 
-              </tr>
-            ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       }
