@@ -13,7 +13,6 @@ import Products from "./components/Products.jsx";
 import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
 import Collections from "./components/Collections.jsx";
-import AddCollection from "./components/AddCollection.jsx"; // New Component
 
 const router = createBrowserRouter(
   [
@@ -53,10 +52,6 @@ const router = createBrowserRouter(
         {
           path: "/collections",
           element: <Collections />,
-        },
-        {
-          path: "/collections/add", // New route
-          element: <AddCollection />,
         },
         {
           path: "/customers",
