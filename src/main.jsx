@@ -12,54 +12,66 @@ import Base from "./components/Base.jsx";
 import Products from "./components/Products.jsx";
 import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
+import Collections from "./components/Collections.jsx";
+import AddCollection from "./components/AddCollection.jsx"; // New Component
 
 const router = createBrowserRouter(
   [
+    // Customer-facing routes
     {
       path: "/",
       element: <App />,
       children: [
         {
-          path:'/',
-          element:<Home/>
+          path: "/",
+          element: <Home />,
         },
-      ]
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+      ],
     },
+
+    // Admin routes
     {
-      path:'/register',
-      element:<Register/>,
+      path: "/",
+      element: <Base />,
+      children: [
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "/products",
+          element: <Products />,
+        },
+        {
+          path: "/collections",
+          element: <Collections />,
+        },
+        {
+          path: "/collections/add", // New route
+          element: <AddCollection />,
+        },
+        {
+          path: "/customers",
+          element: <Customers />,
+        },
+        {
+          path: "/orders",
+          element: <Orders />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ],
     },
-    {
-      path:'/login',
-      element:<Login/>,
-    },
-    {
-      path:'/',
-      element: <Base/>,
-      children:[
-        {
-          path:'/dashboard',
-          element:<Dashboard/>,
-        },
-        {
-          path:'/products',
-          element:<Products/>,
-        },
-        {
-          path:'/customers',
-          element:<Customers/>,
-        },
-        {
-          path:'/orders',
-          element:<Orders/>,
-        },
-        {
-          path:'/profile',
-          element:<Profile/>,
-        },
-      ]
-    },
-    
   ],
   {
     future: {
