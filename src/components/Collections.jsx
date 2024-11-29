@@ -22,7 +22,7 @@ function Collections() {
       console.log("Document written with ID: ", docRef.id);
       setFormUpdate(!formUpdate);
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error adding collection: ", e);
     }
   };
 
@@ -65,53 +65,16 @@ function Collections() {
               </h1>
               <form className="space-y-4 flex flex-col justify-center" onSubmit={handleAddCollectionForm}>
                 <div className="w-full min-w-[200px] px-5 py-2">
-                  <label
-                    htmlFor="title"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                  >
-                    Title
-                  </label>
-                  <input
-                    id="title"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Type here..."
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
-                    required
-                  />
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                  <input id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." onChange={(e) => setTitle(e.target.value)} value={title} required />
                 </div>
                 <div className="w-full min-w-[200px] px-5 py-2">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-
-                  >
-                    Description
-                  </label>
-                  <textarea
-                    id="description"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    rows="4"
-                    placeholder="Type here..."
-                    onChange={(e) => setDescription(e.target.value)}
-                    value={description}
-                    required
-                  ></textarea>
+                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                  <textarea id="description" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="4" placeholder="Type here..." onChange={(e) => setDescription(e.target.value)} value={description} required ></textarea>
                 </div>
                 <div className="flex justify-evenly w-full max-w-sm min-w-[200px] m-auto">
-                  <button
-                    type="button"
-                    onClick={() => setAddPop(!addPop)}
-                    className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600"
-                  >
-                    Submit
-                  </button>
+                  <button type="button" onClick={() => setAddPop(!addPop)} className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
+                  <button type="submit" className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600">Submit</button>
                 </div>
               </form>
             </div>

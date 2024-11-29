@@ -1,45 +1,39 @@
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import React, { useState } from 'react'
-import { app, db } from "../firebase/Firebase";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { db } from '../firebase/Firebase';
+import { collection, addDoc, getDocs, serverTimestamp, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
-function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
+function ProductList() {
   const [isEditing, setIsEditing] = useState(false);
-  const [editUser, setEditUser] = useState({});
+  const [editCollection, setEditCollection] = useState({});
 
-
-  const handleEdit = (user) => {
+  const handleEdit = (collection) => {
     setIsEditing(true);
-    setEditUser(user);
+    setEditCollection(collection);
   };
 
   const handleSaveEdit = async () => {
     try {
-      const userRef = doc(db, "users", editUser.id);
-      await updateDoc(userRef, {
-        name: editUser.name,
-        email: editUser.email,
-        phone: editUser.phone,
-        street:editUser.street,
-        city:editUser.city,
-        state:editUser.state,
-        zip:editUser.zip
+      const collectionRef = doc(db, "collections", editCollection.id);
+      await updateDoc(collectionRef, {
+        title: editCollection.title,
+        description: editCollection.description,
       });
-      console.log("Document updated with ID: ", editUser.id);
+      console.log("Document updated with ID: ", editCollection.id);
       setIsEditing(false);
-      setEditUser({});
+      setEditCollection({});
       setFormUpdate(!formUpdate);
-      console.log(editUser);
     } catch (e) {
       console.error("Error updating document: ", e);
     }
   };
 
-  const handleDelete = async (userId) => {
+  const handleDelete = async (collectionId) => {
     try {
-      const userRef = doc(db, "users", userId);
-      await deleteDoc(userRef);
-      console.log("Document deleted with ID: ", userId);
-      setUsers(users.filter(user => user.id !== userId))
+      const collectionRef = doc(db, "collections", collectionId);
+      await deleteDoc(collectionRef);
+      console.log("Document deleted with ID: ", collectionId);
+      setCollections(collections.filter(collection => collection.id !== collectionId));
     } catch (e) {
       console.error("Error deleting document: ", e);
     }
@@ -47,14 +41,16 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditUser({
-      ...editUser, [name]: value,
+    setEditCollection({
+      ...editCollection,
+      [name]: value,
     });
   };
 
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
-      {users &&
+      {collections &&
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -64,21 +60,19 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
                   <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                 </div>
               </th>
-              <th scope="col" className="px-6 py-3">Name</th>
-              <th scope="col" className="px-6 py-3">Email</th>
-              <th scope="col" className="px-6 py-3">Phone Number</th>
+              <th scope="col" className="px-6 py-3">Collection name</th>
+              <th scope="col" className="px-6 py-3">Description</th>
               <th scope="col" className="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            {users
-              .filter((user) =>
-                user.name.toLowerCase().includes(search.toLowerCase()) ||
-                user.email.toLowerCase().includes(search.toLowerCase()) ||
-                user.phone.toLowerCase().includes(search.toLowerCase())
+            {collections
+              .filter((collection) =>
+                collection.title.toLowerCase().includes(search.toLowerCase()) ||
+                collection.description.toLowerCase().includes(search.toLowerCase())
               )
-              .map((user) => (
-                <tr key={user.uid} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              .map((collection) => (
+                <tr key={collection.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td className="w-4 p-4">
                     <div className="flex items-center">
                       <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
@@ -86,23 +80,20 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
                     </div>
                   </td>
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {user.name}
+                    {collection.title}
                   </th>
                   <td className="px-6 py-4">
-                    {user.email}
-                  </td>
-                  <td className="px-6 py-4">
-                    {user.phone}
+                    {collection.description}
                   </td>
                   <td className="px-6 py-4 flex items-center space-x-4">
-                    <button onClick={() => handleEdit(user)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
+                    <button onClick={() => handleEdit(collection)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 2l6 6-6 6M8 12l-6 6 6 6"></path>
                       </svg>
                       Edit
                     </button>
 
-                    <button onClick={() => handleDelete(user.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
+                    <button onClick={() => handleDelete(collection.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
@@ -117,39 +108,48 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
 
 
       {isEditing && (
+
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
             <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
-              Edit Customer
+              Add New Collection
             </h1>
-            <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="space-y-4 flex flex-col justify-center">
               <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >Name</label>
-                <input type='text' id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="name" value={editUser.name} onChange={handleEditChange} required />
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                  Title
+                </label>
+                <input
+                  id="title"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Type here..."
+                  name="title"
+                  value={editCollection.title}
+                  onChange={handleEditChange}
+                  required
+                />
               </div>
               <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >Email</label>
-                <input type='email' id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="email" value={editUser.email} onChange={handleEditChange} required />
-              </div>
-              <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >Phone Number</label>
-                <input type='number' id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="phone" value={editUser.phone} onChange={handleEditChange} required />
-              </div>
-              <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="street" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >Street</label>
-                <input type='text' id="street" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="street" value={editUser.street} onChange={handleEditChange} required />
-              </div>
-              <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >City</label>
-                <input type='text' id="city" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="city" value={editUser.city} onChange={handleEditChange} required />
-              </div>
-              <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="state" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >State</label>
-                <input type='text' id="state" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="state" value={editUser.state} onChange={handleEditChange} required />
-              </div>
-              <div className="w-full min-w-[200px] px-5 py-2">
-                <label htmlFor="zip" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" >Zip</label>
-                <input type='text' id="zip" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name="zip" value={editUser.zip} onChange={handleEditChange} required />
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+
+                >
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  rows="4"
+                  placeholder="Type here..."
+                  name="description"
+                  value={editCollection.description}
+                  onChange={handleEditChange}
+                  required
+                ></textarea>
               </div>
               <div className="flex justify-evenly w-full max-w-sm min-w-[200px] m-auto">
                 <button
@@ -198,7 +198,8 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
         </ul>
       </nav>
     </div>
+
   )
 }
 
-export default CustomerList
+export default ProductList

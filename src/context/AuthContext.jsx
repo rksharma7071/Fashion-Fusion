@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -52,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, users, setUsers, collections, setCollections }}>
+    <AuthContext.Provider value={{ user, users, setUsers, collections, setCollections, products, setProducts }}>
       {children}
     </AuthContext.Provider>
   );
