@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
@@ -10,8 +10,10 @@ import { useAuth } from "../context/AuthContext";
 
 
 function Header() {
-  const { user, users, setUsers, collections, setCollections } = useAuth();
+  const { user, users, setUsers, collections, products, setCollections } = useAuth();
   const auth = getAuth();
+  
+
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -32,6 +34,7 @@ function Header() {
         data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar"
         type="button"
+        // onClick={toggleSidebar}
         className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
@@ -51,10 +54,7 @@ function Header() {
       </button>
 
       <aside
-        id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-        aria-label="Sidebar"
-        aria-hidden="true"
+        id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
@@ -87,6 +87,9 @@ function Header() {
               >
                 <IoMdPricetag className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  {products.length}
+                </span>
               </Link>
             </li>
             <li>

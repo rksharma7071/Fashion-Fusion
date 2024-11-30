@@ -14,6 +14,7 @@ import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
 import Collections from "./components/Collections.jsx";
 
+
 const router = createBrowserRouter(
   [
     // Customer-facing routes

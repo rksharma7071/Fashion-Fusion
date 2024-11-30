@@ -2,38 +2,49 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from '../firebase/Firebase';
 import { collection, addDoc, getDocs, serverTimestamp, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { useAuth } from "../context/AuthContext";
 
-function ProductList() {
+function ProductList(search, setProducts, formUpdate, setFormUpdate) {
+  const { user, users, setUsers, collections, products, setCollections } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const [editCollection, setEditCollection] = useState({});
+  const [editProduct, setEditProduct] = useState({});
+  const [catSearch, setCatSearch] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [catPop, setCatPop] = useState(false);
 
-  const handleEdit = (collection) => {
+
+  const handleEdit = (product) => {
     setIsEditing(true);
-    setEditCollection(collection);
+    setEditProduct(product);
   };
 
   const handleSaveEdit = async () => {
     try {
-      const collectionRef = doc(db, "collections", editCollection.id);
-      await updateDoc(collectionRef, {
-        title: editCollection.title,
-        description: editCollection.description,
+      const productRef = doc(db, "products", editProduct.id);
+      await updateDoc(productRef, {
+        title: editProduct.title,
+        description: editProduct.description,
+        price: editProduct.price,
+        stock: editProduct.stock,
+        imageURL: editProduct.imageURL,
+        categories: selectedCategories, // Save selected categories
+        updated_at: serverTimestamp(),
       });
-      console.log("Document updated with ID: ", editCollection.id);
+      console.log("Document updated with ID: ", editProduct.id);
       setIsEditing(false);
-      setEditCollection({});
+      setEditProduct({});
       setFormUpdate(!formUpdate);
     } catch (e) {
       console.error("Error updating document: ", e);
     }
   };
 
-  const handleDelete = async (collectionId) => {
+  const handleDelete = async (productId) => {
     try {
-      const collectionRef = doc(db, "collections", collectionId);
-      await deleteDoc(collectionRef);
-      console.log("Document deleted with ID: ", collectionId);
-      setCollections(collections.filter(collection => collection.id !== collectionId));
+      const productRef = doc(db, "products", productId);
+      await deleteDoc(productRef);
+      console.log("Document deleted with ID: ", productId);
+      setProducts(products.filter(product => product.id !== productId));
     } catch (e) {
       console.error("Error deleting document: ", e);
     }
@@ -41,16 +52,34 @@ function ProductList() {
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditCollection({
-      ...editCollection,
+    setEditProduct({
+      ...editProduct,
       [name]: value,
     });
   };
 
+  const handleCheckboxChange = (categoryId) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+
+  const selectedTitles = selectedCategories.map(id => {
+    const collection = collections.find(col => col.id === id);
+    return collection ? collection.title : `Unknown Title (${id})`;
+  });
+
+  useEffect(() => {
+    console.log(products);
+  }, [products])
+
+
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
-      {collections &&
+      {products &&
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -60,59 +89,116 @@ function ProductList() {
                   <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
                 </div>
               </th>
-              <th scope="col" className="px-6 py-3">Collection name</th>
-              <th scope="col" className="px-6 py-3">Description</th>
+              <th scope="col" className="px-6 py-3">Image</th>
+              <th scope="col" className="px-6 py-3">Name</th>
+              <th scope="col" className="px-6 py-3">Inventory</th>
+              <th scope="col" className="px-6 py-3">Price</th>
               <th scope="col" className="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            {collections
-              .filter((collection) =>
-                collection.title.toLowerCase().includes(search.toLowerCase()) ||
-                collection.description.toLowerCase().includes(search.toLowerCase())
-              )
-              .map((collection) => (
-                <tr key={collection.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <td className="w-4 p-4">
-                    <div className="flex items-center">
-                      <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                      <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                    </div>
-                  </td>
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {collection.title}
-                  </th>
-                  <td className="px-6 py-4">
-                    {collection.description}
-                  </td>
-                  <td className="px-6 py-4 flex items-center space-x-4">
-                    <button onClick={() => handleEdit(collection)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 2l6 6-6 6M8 12l-6 6 6 6"></path>
-                      </svg>
-                      Edit
-                    </button>
+            {products.map((product) => (
+              <tr key={product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td className="w-4 p-4">
+                  <div className="flex items-center">
+                    <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                  </div>
+                </td>
+                <td className="w-4 p-4">
+                  <div className="flex items-center "><img className="rounded-md" src={product.imageURL} alt={product.title} /></div>
+                </td>
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{product.title}</th>
+                <td className="px-6 py-4">{product.stock}</td>
+                <td className="px-6 py-4">${product.price}</td>
+                <td className="px-6 py-4 flex items-center space-x-4">
+                  <button onClick={() => handleEdit(product)} className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 2l6 6-6 6M8 12l-6 6 6 6"></path>
+                    </svg>
+                    Edit
+                  </button>
 
-                    <button onClick={() => handleDelete(collection.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                      </svg>
-                      Delete</button>
-                  </td>
+                  <button onClick={() => handleDelete(product.id)} className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Delete</button>
+                </td>
 
-                </tr>
-              ))}
+              </tr>
+            ))
+            }
           </tbody>
         </table>
       }
 
 
       {isEditing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
+            <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">Edit Product</h1>
+            <div className="space-y-4">
+              <div className="w-full min-w-[200px] px-5 py-2">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                <input id="title" className="w-full p-2.5 rounded-lg border border-gray-300" name="title" value={editProduct.title} onChange={handleEditChange} required />
+              </div>
+              <div className="w-full min-w-[200px] px-5 py-2">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                <textarea id="description" className="w-full p-2.5 rounded-lg border border-gray-300" name="description" value={editProduct.description} onChange={handleEditChange} required></textarea>
+              </div>
+              <div className='grid grid-cols-2'>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Price</label>
+                  <input type="number" id="price" className="w-full p-2.5 rounded-lg border border-gray-300" name="price" value={editProduct.price} onChange={handleEditChange} required />
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="stock" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Stock</label>
+                  <input type="number" id="stock" className="w-full p-2.5 rounded-lg border border-gray-300" name="stock" value={editProduct.stock} onChange={handleEditChange} required />
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="categories" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categories</label>
+                  <input type="text" onClick={() => setCatPop(!catPop)} readOnly id="categories" className="w-full p-2.5 rounded-lg border border-gray-300" value={selectedTitles.join(', ')} />
+                  <button onClick={() => setCatPop(!catPop)} className="mt-2 text-blue-600">
+                  {catPop ? 'Close Category List' : 'Select Categories' }
+                  
+                  </button>
+                  <div className={`z-10 bg-white rounded-lg shadow dark:bg-gray-700 absolute ${catPop ? "block" : "hidden"}`}>
+                    <div className="p-3">
+                      <input type="text" onChange={(e) => setCatSearch(e.target.value)} className="w-full p-2 rounded border border-gray-300" placeholder="Search categories" />
+                      <ul className="h-28 overflow-y-auto">
+                        {collections.filter(c => c.title.toLowerCase().includes(catSearch.toLowerCase())).map((collection, index) => (
+                          <li key={index}>
+                            <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                              <input type="checkbox" checked={selectedCategories.includes(collection.id)} onChange={() => handleCheckboxChange(collection.id)} className="w-4 h-4" />
+                              <span className="ml-2 text-sm text-gray-800 dark:text-white">{collection.title}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image URL</label>
+                  <input type='url' id="imageURL" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name='imageURL' value={editProduct.imageURL} onChange={handleEditChange} required />
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <button onClick={() => setIsEditing(false)} className="ml-2 bg-gray-300 text-black px-4 py-2 rounded">Cancel</button>
+                <button onClick={handleSaveEdit} className="bg-indigo-600 text-white px-4 py-2 rounded">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* {isEditing && (
 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
             <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
-              Add New Collection
+              Edit Product
             </h1>
             <div className="space-y-4 flex flex-col justify-center">
               <div className="w-full min-w-[200px] px-5 py-2">
@@ -127,7 +213,7 @@ function ProductList() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Type here..."
                   name="title"
-                  value={editCollection.title}
+                  value={editProduct.title}
                   onChange={handleEditChange}
                   required
                 />
@@ -146,10 +232,57 @@ function ProductList() {
                   rows="4"
                   placeholder="Type here..."
                   name="description"
-                  value={editCollection.description}
+                  value={editProduct.description}
                   onChange={handleEditChange}
                   required
                 ></textarea>
+              </div>
+              <div className='grid grid-cols-2'>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Price</label>
+                  <input type='number' id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name='price' value={editProduct.price} onChange={handleEditChange} required />
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="stock" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Stock</label>
+                  <input type='number' id="stock" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name='stock' value={editProduct.stock} onChange={handleEditChange} required />
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="categories" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categories</label>
+                  <input onClick={() => setCatPop(!catPop)} type='text' readOnly id="categories" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name='categories' value={selectedTitles.join(', ')} onChange={handleEditChange} required />
+
+                  <div id="dropdownSearch" className={`z-10 bg-white rounded-lg shadow dark:bg-gray-700 absolute ${catPop ? "block" : "hidden"}`} aria-hidden="true" data-popper-placement="bottom">
+                    <div className="p-3">
+                      <label htmlFor="input-group-search" className="sr-only">Search</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                          </svg>
+                        </div>
+                        <input type="text" onChange={(e) => setCatSearch(e.target.value)} id="input-group-search" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search user" />
+                      </div>
+                    </div>
+                    <ul className="h-32 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
+                      {collections
+                        .filter((collection) =>
+                          collection.title.toLowerCase().includes(catSearch.toLowerCase())
+                        )
+                        .map((collection, index) => (
+                          <li key={index}>
+                            <div className="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                              <input id={`checkbox_${index}`} checked={selectedCategories.includes(collection.id)} onChange={() => handleCheckboxChange(collection.id)} type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                              <label htmlFor={`checkbox_${index}`} className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{collection.title}</label>
+                            </div>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+
+                </div>
+                <div className="w-full min-w-[200px] px-5 py-2">
+                  <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image URL</label>
+                  <input type='url' id="imageURL" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type here..." name='imageURL' value={editProduct.imageURL} onChange={handleEditChange} required />
+                </div>
               </div>
               <div className="flex justify-evenly w-full max-w-sm min-w-[200px] m-auto">
                 <button
@@ -170,7 +303,7 @@ function ProductList() {
           </div>
         </div>
       )
-      }
+      } */}
       <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-10</span> of <span className="font-semibold text-gray-900 dark:text-white">1000</span></span>
         <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">

@@ -42,6 +42,17 @@ export const AuthProvider = ({ children }) => {
           ...doc.data(),
         }));
         setCollections(collectionsArray);
+
+        const productsSnapshot = await getDocs(collection(db, "products"));
+        const productsArray = productsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProducts(productsArray);
+        
+        console.log("Products: ", products);
+        console.log("Collections: ", collections);
+        console.log("Products: ", users);
       } catch (e) {
         console.error("Error fetching data: ", e);
       }
@@ -49,7 +60,6 @@ export const AuthProvider = ({ children }) => {
 
     fetchData();
   }, []);
-
 
 
   return (
