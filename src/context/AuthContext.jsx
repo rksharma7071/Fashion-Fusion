@@ -26,6 +26,15 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  function generateSlug(name) {
+    const sanitizedName = name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, '-');
+    return sanitizedName;
+  }
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, users, setUsers, collections, setCollections, products, setProducts }}>
+    <AuthContext.Provider value={{ user, users, setUsers, collections, setCollections, products, setProducts, generateSlug }}>
       {children}
     </AuthContext.Provider>
   );

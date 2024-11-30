@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function Orders() {
   return (
@@ -9,7 +9,7 @@ function Orders() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Orders
+export default Orders;
