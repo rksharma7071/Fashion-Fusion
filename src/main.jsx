@@ -13,6 +13,7 @@ import Products from "./components/Products.jsx";
 import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
 import Collections from "./components/Collections.jsx";
+import AllProducts from "./components/AllProducts.jsx";
 
 
 const router = createBrowserRouter(
@@ -25,6 +26,10 @@ const router = createBrowserRouter(
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/products",
+          element: <AllProducts />,
         },
         {
           path: "/register",
@@ -43,27 +48,27 @@ const router = createBrowserRouter(
       element: <Base />,
       children: [
         {
-          path: "/dashboard",
+          path: "/admin/dashboard",
           element: <Dashboard />,
         },
         {
-          path: "/products",
+          path: "/admin/products",
           element: <Products />,
         },
         {
-          path: "/collections",
+          path: "/admin/collections",
           element: <Collections />,
         },
         {
-          path: "/customers",
+          path: "/admin/customers",
           element: <Customers />,
         },
         {
-          path: "/orders",
+          path: "/admin/orders",
           element: <Orders />,
         },
         {
-          path: "/profile",
+          path: "/admin/profile",
           element: <Profile />,
         },
       ],
