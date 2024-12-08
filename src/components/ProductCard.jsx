@@ -1,31 +1,44 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FaRegHeart } from "react-icons/fa";
 
-function ProductCard() {
+function ProductCard({ product }) {
   return (
-    <div className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow-md">
-      <a
-        className="relative mx-3 flex h-60 overflow-hidden rounded-xl"
-        href="#"
+    <div
+      style={{ height: "500px" }}
+      className="relative m-10 h-30 flex aspect-square w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow-md"
+    >
+      <Link
+        className="relative mx-3 flex  overflow-hidden rounded-xl "
+        to={`/product/${product.slug}`}
       >
         <img
-          className="object-cover"
-          src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+          className="object-cover w-full"
+          // src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+          src={product.imageURL}
           alt="product image"
         />
+        <span className="absolute top-0 right-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+          <FaRegHeart />
+        </span>
         <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
           39% OFF
         </span>
-      </a>
+      </Link>
       <div className="mt-4 px-5 pb-5">
-        <a href="#">
+        <Link to={`/product/${product.slug}`}>
           <h5 className="text-xl tracking-tight text-slate-900">
-            Nike Air MX Super 2500 - Red
+            {product.title}
           </h5>
-        </a>
+        </Link>
         <div className="mt-2 mb-5 flex items-center justify-between">
           <p>
-            <span className="text-3xl font-bold text-slate-900">$449</span>
-            <span className="text-sm text-slate-900 line-through">$699</span>
+            <span className="text-3xl font-bold text-slate-900">
+              ${product.price}
+            </span>
+            <span className="text-sm text-slate-900 line-through">
+              ${Number(product.price) + 60}
+            </span>
           </p>
           <div className="flex items-center">
             <svg
@@ -78,8 +91,8 @@ function ProductCard() {
             </span>
           </div>
         </div>
-        <a
-          href="#"
+        <Link
+          to={""}
           className="flex items-center justify-center rounded-md bg-black px-5 py-2.5 text-center text-sm font-medium hover:text-white text-slate-800 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           <svg
@@ -88,16 +101,16 @@ function ProductCard() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="2"
+            strokeWidth="2"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
           Add to cart
-        </a>
+        </Link>
       </div>
     </div>
   );

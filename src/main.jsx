@@ -14,6 +14,7 @@ import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
 import Collections from "./components/Collections.jsx";
 import AllProducts from "./components/AllProducts.jsx";
+import Product from "./components/Product.jsx";
 
 
 const router = createBrowserRouter(
@@ -30,6 +31,10 @@ const router = createBrowserRouter(
         {
           path: "/products",
           element: <AllProducts />,
+        },
+        {
+          path: "/product/:slug",
+          element: <Product />,
         },
         {
           path: "/register",
