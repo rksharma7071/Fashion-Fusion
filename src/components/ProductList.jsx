@@ -27,7 +27,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
   const [catSearch, setCatSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [catPop, setCatPop] = useState(false);
-  const {generateSlug} = useAuth();
+  const { generateSlug } = useAuth();
 
   const handleEdit = (product) => {
     setIsEditing(true);

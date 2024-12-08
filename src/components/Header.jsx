@@ -8,12 +8,10 @@ import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 
-
 function Header() {
-  const { user, users, setUsers, collections, products, setCollections } = useAuth();
+  const { user, users, setUsers, collections, products, setCollections } =
+    useAuth();
   const auth = getAuth();
-  
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -25,7 +23,6 @@ function Header() {
       console.error("Logout error:", error.message);
     }
   };
-
 
   return (
     <>
@@ -53,14 +50,16 @@ function Header() {
         </svg>
       </button>
 
-      <aside
-        id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar"
+      <div
+        id="default-sidebar"
+        className="fixed top-0 left-0 z-40 w-64 h-screen"
+        aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
             <li>
               <Link
-                to={'/admin/dashboard'}
+                to={"/admin/dashboard"}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <RiDashboardHorizontalFill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
@@ -98,8 +97,12 @@ function Header() {
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <IoMdPricetag className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="flex-1 ms-3 whitespace-nowrap">Collections</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{collections.length}</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  Collections
+                </span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  {collections.length}
+                </span>
               </Link>
             </li>
             <li>
@@ -109,10 +112,11 @@ function Header() {
               >
                 <HiUsers className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">Customers</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">{users.length}</span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  {users.length}
+                </span>
               </Link>
             </li>
-
 
             <li>
               <p
@@ -139,10 +143,9 @@ function Header() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
               </p>
             </li>
-
           </ul>
         </div>
-      </aside>
+      </div>
     </>
   );
 }

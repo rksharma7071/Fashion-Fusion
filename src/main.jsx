@@ -16,10 +16,8 @@ import Collections from "./components/Collections.jsx";
 import AllProducts from "./components/AllProducts.jsx";
 import Product from "./components/Product.jsx";
 
-
 const router = createBrowserRouter(
   [
-    // Customer-facing routes
     {
       path: "/",
       element: <App />,
@@ -47,7 +45,6 @@ const router = createBrowserRouter(
       ],
     },
 
-    // Admin routes
     {
       path: "/",
       element: <Base />,

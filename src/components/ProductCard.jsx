@@ -6,7 +6,7 @@ function ProductCard({ product }) {
   return (
     <div
       style={{ height: "500px" }}
-      className="relative m-10 h-30 flex aspect-square w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow-md"
+      className="relative m-10 flex aspect-square w-full flex-col overflow-hidden rounded-lg bg-white shadow-md"
     >
       <Link
         className="relative mx-3 flex  overflow-hidden rounded-xl "
@@ -40,7 +40,9 @@ function ProductCard({ product }) {
               ${Number(product.price) + 60}
             </span>
           </p>
-          <div className="flex items-center">
+          
+        </div>
+        <div className="flex items-center">
             <svg
               aria-hidden="true"
               className="h-5 w-5 text-yellow-300"
@@ -90,7 +92,6 @@ function ProductCard({ product }) {
               5.0
             </span>
           </div>
-        </div>
         <Link
           to={""}
           className="flex items-center justify-center rounded-md bg-black px-5 py-2.5 text-center text-sm font-medium hover:text-white text-slate-800 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"

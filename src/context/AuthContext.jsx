@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
           uid: user.uid,
           email: user.email,
         });
+        // console.log("user: ", user.uid, "email: ", user.email);
       } else {
         setUser(null);
       }
@@ -75,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
         console.log("Products: ", products);
         console.log("Collections: ", collections);
-        console.log("Products: ", users);
+        console.log("Users: ", users);
       } catch (e) {
         console.error("Error fetching data: ", e);
       }
@@ -89,6 +90,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         users,
+        setUser,
         setUsers,
         collections,
         setCollections,
