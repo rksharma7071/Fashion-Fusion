@@ -15,6 +15,7 @@ import Orders from "./components/Orders.jsx";
 import Collections from "./components/Collections.jsx";
 import AllProducts from "./components/AllProducts.jsx";
 import Product from "./components/Product.jsx";
+import Cart from "./components/Cart.jsx";
 
 const router = createBrowserRouter(
   [
@@ -29,6 +30,10 @@ const router = createBrowserRouter(
         {
           path: "/products",
           element: <AllProducts />,
+        },
+        {
+          path: "/cart",
+          element: <Cart />,
         },
         {
           path: "/product/:slug",

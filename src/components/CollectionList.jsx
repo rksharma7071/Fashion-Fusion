@@ -19,7 +19,7 @@ export default function CollectionList({
   formUpdate,
   setFormUpdate,
 }) {
-  const{generateSlug} = useAuth();
+  const { generateSlug } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editCollection, setEditCollection] = useState({});
 

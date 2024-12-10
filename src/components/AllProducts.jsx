@@ -6,7 +6,7 @@ function AllProducts() {
   const { products, setProducts, collections, generateSlug, search } =
     useAuth();
 
-  console.log(products);
+  // console.log(products);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-lg:col-auto gap-4 p-5">
       {products

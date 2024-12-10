@@ -7,6 +7,8 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import {
   onAuthStateChanged,
@@ -23,6 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [collections, setCollections] = useState([]);
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -58,6 +61,13 @@ export const AuthProvider = ({ children }) => {
         }));
         setUsers(usersArray);
 
+        const cartSnapshot = await getDocs(collection(db, "cart"));
+        const cartArray = cartSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCartItems(cartArray);
+
         const collectionsSnapshot = await getDocs(
           collection(db, "collections")
         );
@@ -74,9 +84,28 @@ export const AuthProvider = ({ children }) => {
         }));
         setProducts(productsArray);
 
-        console.log("Products: ", products);
-        console.log("Collections: ", collections);
-        console.log("Users: ", users);
+        if (user) {
+          try {
+            const cartRef = collection(db, "cart");
+            const cartQuery = query(cartRef, where("userId", "==", user.uid));
+            const cartSnapshot = await getDocs(cartQuery);
+
+            if (!cartSnapshot.empty) {
+              const cartDoc = cartSnapshot.docs[0];
+              const cartData = cartDoc.data();
+              setCartItems(cartData.items);
+            } else {
+              console.log("No cart found for this user.");
+              setCartItems([]);
+            }
+          } catch (e) {
+            console.error("Error fetching cart items: ", e);
+          }
+        }
+
+        // console.log("Products: ", products);
+        // console.log("Collections: ", collections);
+        // console.log("Users: ", users);
       } catch (e) {
         console.error("Error fetching data: ", e);
       }
@@ -99,6 +128,8 @@ export const AuthProvider = ({ children }) => {
         generateSlug,
         search,
         setSearch,
+        cartItems,
+        setCartItems,
       }}
     >
       {children}
