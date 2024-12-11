@@ -8,13 +8,13 @@ function AllProducts() {
 
   // console.log(products);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-lg:col-auto gap-4 p-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:col-8 gap-4 p-5">
       {products
         .filter((product) =>
           product.title.toLowerCase().includes(search.toLowerCase())
         )
         .map((product, index) => (
-          <div className="lg:col-span-4" key={index} >
+          <div className="" key={index} >
             <ProductCard product={product} />
           </div>
         ))}
