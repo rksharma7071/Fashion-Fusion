@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase/Firebase";
+import { db } from "../../firebase/Firebase";
 
 const Cart = () => {
-  const { user, cartItems, setCartItems } = useAuth();
-  const [cart, setCart] = useState([]);
+  const { user, cartItems, setCartItems, cart, setCart } = useAuth();
+  
   const [quantity, setQuantity] = useState(1);
 
   const getTotal = () =>

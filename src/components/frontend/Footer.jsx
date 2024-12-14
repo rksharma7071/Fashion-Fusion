@@ -2,8 +2,8 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-white shadow dark:bg-gray-900">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <footer className="bg-white dark:bg-gray-900 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
             href="https://FashionFusion.com/"

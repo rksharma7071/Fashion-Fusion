@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/Firebase";
-import Logout from "./Logout";
+import Logout from "./frontend/Logout";
+import { useAuth } from "../context/AuthContext";
 
 function Profile() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { user } = useAuth();
+
 
   const uid = localStorage.getItem("uid"); // Retrieve UID from local storage
 
   useEffect(() => {
-    if (!uid) {
-      navigate("/login"); // Redirect if no UID is found
-      return;
-    }
+    // if (!uid) {
+    //   navigate("/login"); // Redirect if no UID is found
+    //   return;
+    // }
 
     const fetchUserData = async () => {
       try {

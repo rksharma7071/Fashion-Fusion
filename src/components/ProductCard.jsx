@@ -12,6 +12,10 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase/Firebase.jsx";
+import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
+import Rating from "./frontend/Rating.jsx";
+
 
 function ProductCard({ product }) {
   const { user, setUser } = useAuth();
@@ -73,95 +77,43 @@ function ProductCard({ product }) {
 
   return (
     <div
-      style={{ height: "500px" }}
-      className="relative flex aspect-square w-full flex-col overflow-hidden rounded-lg bg-white shadow-md"
+      // style={{ height: "500px" }}
+      className="relative flex w-full flex-col bg-white border"
     >
-      <Link
-        className="relative flex  overflow-hidden rounded-xl "
-        to={`/product/${product.slug}`}
-      >
+      <Link to={`/product/${product.slug}`} className="relative flex overflow-hidden">
         <img
-          className="object-cover w-full"
-          // src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+          className="object-cover w-full aspect-square"
           src={product.imageURL}
           alt="product image"
         />
-        <span className="absolute top-0 right-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+        <button className="absolute top-0 right-0 m-2 rounded-full flex justify-center items-center bg-gray-300 text-center text-sm font-medium text-white w-6 h-6 aspect-w-1 aspect-h-1">
           <FaRegHeart />
-        </span>
+        </button>
         <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
           39% OFF
         </span>
       </Link>
       <div className="mt-4 px-5 pb-5">
         <Link to={`/product/${product.slug}`}>
-          <h5 className="text-xl tracking-tight text-slate-900">
+          <h5 className=" text-base tracking-tight text-slate-900">
             {product.title}
           </h5>
         </Link>
-        <div className="mt-2 mb-5 flex items-center justify-between">
+        <div className="mt-2 mb-2 flex items-center justify-between">
           <p>
-            <span className="text-3xl font-bold text-slate-900">
+            <span className="text-2xl font-bold text-slate-900">
               ${product.price}
             </span>
-            <span className="text-sm text-slate-900 line-through">
+            <span className="text-sm text-slate-900 line-through text-gray-500">
               ${Number(product.price) + 60}
             </span>
           </p>
         </div>
-        <div className="flex items-center">
-          <svg
-            aria-hidden="true"
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          <svg
-            aria-hidden="true"
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          <svg
-            aria-hidden="true"
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          <svg
-            aria-hidden="true"
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          <svg
-            aria-hidden="true"
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-          </svg>
-          <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">
-            5.0
-          </span>
-        </div>
+        <Rating/>
+        
         <div
           onClick={() => handleCart(product)}
-          className="flex items-center justify-center mt-4 px-5 py-2.5 text-center text-sm font-medium rounded-md border text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 hover:cursor-pointer focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="flex items-center justify-center mt-4 px-5 py-2.5 hidden text-center text-sm font-medium border text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 hover:cursor-pointer focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

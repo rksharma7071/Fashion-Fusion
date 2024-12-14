@@ -2,20 +2,21 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Register from "./components/Register.jsx";
-import Login from "./components/Login.jsx";
+import Register from "./components/frontend/Register.jsx";
+import Login from "./components/frontend/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
-import Home from "./components/Home.jsx";
+import Home from "./components/frontend/Home.jsx";
 import Profile from "./components/Profile.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Base from "./components/Base.jsx";
 import Products from "./components/Products.jsx";
 import Customers from "./components/Customers.jsx";
 import Orders from "./components/Orders.jsx";
-import Collections from "./components/Collections.jsx";
-import AllProducts from "./components/AllProducts.jsx";
+import Collections from "./components/frontend/Collections.jsx";
+import AllProducts from "./components/frontend/AllProducts.jsx";
 import Product from "./components/Product.jsx";
-import Cart from "./components/Cart.jsx";
+import Cart from "./components/frontend/Cart.jsx";
+import Account from "./components/frontend/Account.jsx";
 
 const router = createBrowserRouter(
   [
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
           element: <Home />,
         },
         {
+          path: "/collections",
+          element: <Collections />,
+        },
+        {
           path: "/products",
           element: <AllProducts />,
         },
@@ -38,6 +43,10 @@ const router = createBrowserRouter(
         {
           path: "/product/:slug",
           element: <Product />,
+        },
+        {
+          path: "/account",
+          element: <Account/>
         },
         {
           path: "/register",
