@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-900 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <footer className="bg-white mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
       <div className="w-full">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
@@ -14,11 +14,11 @@ function Footer() {
               className="h-8"
               alt="Fashion Fusion Logo"
             /> */}
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Fashion Fusion
             </span>
           </a>
-          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
             <li>
               <a href="#" className="hover:underline me-4 md:me-6">
                 About
@@ -41,8 +41,8 @@ function Footer() {
             </li>
           </ul>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+        <span className="block text-sm text-gray-500 sm:text-center">
           © 2023{" "}
           <a href="https://FashionFusion.com/" className="hover:underline">
           Fashion Fusion™

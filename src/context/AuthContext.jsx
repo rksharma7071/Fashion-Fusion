@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [cart, setCart] = useState([]);
+  const [cartUpdate, setCartUpdate] = useState(false);
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -132,7 +133,9 @@ export const AuthProvider = ({ children }) => {
         cartItems,
         setCartItems,
         cart, 
-        setCart
+        setCart,
+        cartUpdate, 
+        setCartUpdate
       }}
     >
       {children}

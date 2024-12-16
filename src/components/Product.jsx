@@ -2,27 +2,56 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import Rating from "./frontend/Rating";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/Firebase";
 
 export default function Product() {
   const { slug } = useParams();
-  const { products, setProducts } = useAuth();
+  const { products, setProducts, cartUpdate, setCartUpdate } = useAuth();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+  const handleCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    product["quantity"] = 1;
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log("Product added successfully!");
+    setCartUpdate(!cartUpdate);
+
+  };
 
   const increment = () => {
     if (product.stock <= quantity) {
       setQuantity(quantity);
-    }
-    else{
+    } else {
       setQuantity(quantity + 1);
     }
   };
   const decrement = () => quantity > 1 && setQuantity(quantity - 1);
 
   useEffect(() => {
-    const productData = products.find((product) => product.slug === slug);
-    setProduct(productData);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const productsSnapshot = await getDocs(collection(db, "products"));
+        const productsArray = productsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProducts(productsArray);
+
+        const productData = products.find((product) => product.slug === slug);
+        setProduct(productData);
+
+      } catch (e) {
+        console.error("Error fetching data: ", e);
+      }
+    };
+
+    fetchData();
+  }, [product]);
+
+
   return (
     <div>
       {product ? (
@@ -45,7 +74,7 @@ export default function Product() {
                 </h1>
                 <p className="text-gray-600 mt-4">{product.description}</p>
 
-                <Rating/>
+                <Rating />
 
                 <p className="text-xl font-semibold text-green-600 mt-4">
                   ${product.price}
@@ -87,7 +116,8 @@ export default function Product() {
                 </button>
                 <button
                   className="mt-6 px-6 py-3 w-full bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition duration-200"
-                  disabled={product.stock <= 0}
+                  // disabled={product.stock <= 0}
+                  onClick={() => handleCart(product)}
                 >
                   {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
                 </button>

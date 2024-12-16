@@ -20,53 +20,6 @@ import Rating from "./frontend/Rating.jsx";
 function ProductCard({ product }) {
   const { user, setUser } = useAuth();
 
-  // const createCart = async (userId, productId) => {
-  //   try {
-  //     const cartRef = collection(db, "cart");
-
-  //     const cartQuery = query(cartRef, where("userId", "==", userId));
-  //     const cartSnapshot = await getDocs(cartQuery);
-
-  //     if (!cartSnapshot.empty) {
-  //       const cartDoc = cartSnapshot.docs[0];
-  //       const cartData = cartDoc.data();
-
-  //       const existingItemIndex = cartData.items.findIndex(
-  //         (item) => item.productId === productId
-  //       );
-
-  //       if (existingItemIndex !== -1) {
-  //         cartData.items[existingItemIndex].quantity += 1;
-  //       } else {
-  //         cartData.items.push({
-  //           productId: productId,
-  //           quantity: 1,
-  //         });
-  //       }
-
-  //       await updateDoc(doc(db, "cart", cartDoc.id), { items: cartData.items });
-  //     } else {
-  //       await addDoc(cartRef, {
-  //         userId: userId,
-  //         items: [
-  //           {
-  //             productId: productId,
-  //             quantity: 1,
-  //           },
-  //         ],
-  //       });
-  //     }
-  //     console.log("Cart updated successfully!");
-  //   } catch (e) {
-  //     console.error("Error updating cart: ", e);
-  //   }
-  // };
-
-  // const handleCart = () => {
-  //   console.log(user);
-  //   createCart(user.uid, product.id, 1);
-  // };
-
   const handleCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     product["quantity"] = 1;
