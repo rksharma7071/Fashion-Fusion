@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
-import Rating from "./frontend/Rating";
+import Rating from "./Rating";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/Firebase";
+import { db } from "../../firebase/Firebase";
 
 export default function Product() {
   const { slug } = useParams();
@@ -109,7 +109,7 @@ export default function Product() {
                 </div>
                 {/* Add to Cart Button */}
                 <button
-                  className="mt-6 px-6 py-3 w-full bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-500 transition duration-200"
+                  className="mt-6 px-6 py-3 w-full bg-[#FF9900] hover:bg-[#FF9950] text-white font-semibold rounded-lg  transition duration-200"
                   disabled={product.stock <= 0}
                 >
                   Add to Wishlist

@@ -78,7 +78,7 @@ export default function Products() {
         <div className="relative w-1/2">
           <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
             <svg
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
+              className="w-5 h-5 text-gray-500"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -96,14 +96,14 @@ export default function Products() {
             value={search}
             type="text"
             id="table-search"
-            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search for items"
           />
         </div>
         <div>
           <button
             onClick={() => setAddPop(!addPop)}
-            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
           >
             Add Product
           </button>
@@ -111,8 +111,8 @@ export default function Products() {
       </div>
       {addPop && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
+          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white shadow-lg">
+            <h1 className="text-xl font-semibold text-gray-800 mb-4 text-center">
               Add New Product
             </h1>
             <form
@@ -122,14 +122,14 @@ export default function Products() {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Title
                 </label>
                 <input
                   type="text"
                   id="title"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Enter Title"
                   name="title"
                   value={product.title}
@@ -140,13 +140,13 @@ export default function Products() {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Description
                 </label>
                 <textarea
                   id="description"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   rows="4"
                   placeholder="Enter Description"
                   name="description"
@@ -159,14 +159,14 @@ export default function Products() {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="price"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Price
                   </label>
                   <input
                     type="number"
                     id="price"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Enter Price"
                     name="price"
                     value={product.price}
@@ -177,14 +177,14 @@ export default function Products() {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="stock"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Stock
                   </label>
                   <input
                     type="number"
                     id="stock"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Enter Inventory"
                     name="stock"
                     value={product.stock}
@@ -195,7 +195,7 @@ export default function Products() {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="categories"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Categories
                   </label>
@@ -204,7 +204,7 @@ export default function Products() {
                     type="text"
                     readOnly
                     id="categories"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Select Categories"
                     name="categories"
                     value={selectedTitles.join(", ")}
@@ -219,7 +219,7 @@ export default function Products() {
                   </button>
                   <div
                     id="dropdownSearch"
-                    className={`z-10 bg-white rounded-lg shadow dark:bg-gray-700 absolute ${
+                    className={`z-10 bg-white rounded-lg shadow absolute ${
                       catPop ? "block" : "hidden"
                     }`}
                     aria-hidden="true"
@@ -232,7 +232,7 @@ export default function Products() {
                       <div className="relative">
                         <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                           <svg
-                            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                            className="w-4 h-4 text-gray-500"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -251,13 +251,13 @@ export default function Products() {
                           type="text"
                           onChange={(e) => setCatSearch(e.target.value)}
                           id="input-group-search"
-                          className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Search categories"
                         />
                       </div>
                     </div>
                     <ul
-                      className="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                      className="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700"
                       aria-labelledby="dropdownSearchButton"
                     >
                       {collections
@@ -268,7 +268,7 @@ export default function Products() {
                         )
                         .map((collection, index) => (
                           <li key={index}>
-                            <div className="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <div className="flex items-center ps-2 rounded hover:bg-gray-100">
                               <input
                                 id={`checkbox_${index}`}
                                 checked={selectedCategories.includes(
@@ -279,11 +279,11 @@ export default function Products() {
                                 }
                                 type="checkbox"
                                 value=""
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-50 focus:ring-2"
                               />
                               <label
                                 htmlFor={`checkbox_${index}`}
-                                className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                                className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded"
                               >
                                 {collection.title}
                               </label>
@@ -296,14 +296,14 @@ export default function Products() {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="imageURL"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Image URL
                   </label>
                   <input
                     type="url"
                     id="imageURL"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Enter Image URL"
                     name="imageURL"
                     value={product.imageURL}
@@ -316,13 +316,13 @@ export default function Products() {
                 <button
                   type="button"
                   onClick={() => setAddPop(!addPop)}
-                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
                 >
                   Save
                 </button>

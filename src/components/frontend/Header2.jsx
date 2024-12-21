@@ -1,6 +1,8 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { IoMdClose } from "react-icons/io";
+
 import {
   Dialog,
   DialogBackdrop,
@@ -152,11 +154,12 @@ const navigation = {
   pages: [
     { name: "Product", href: "products" },
     { name: "Collection", href: "collections" },
+    { name: "Contact Us", href: "contact" },
   ],
 };
 
 function Header2() {
-  const { user, search, setSearch, cartItems, cart, setCart } = useAuth();
+  const { user, search, setSearch, cartItems, cart, setCart, products } = useAuth();
 
   const [open, setOpen] = useState(false);
   const [searchToggle, setSearchToggle] = useState(false);
@@ -472,15 +475,15 @@ function Header2() {
                 </PopoverGroup>
 
                 <div className="ml-auto flex items-center">
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    {!user && (
+                  <div className="hidden md:block lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    {/* {!user && (
                       <Link
                         to={"/login"}
                         className="text-sm font-medium text-gray-700 hover:text-gray-800"
                       >
                         Sign in
                       </Link>
-                    )}
+                    )} */}
                     {/* <span aria-hidden="true" className="h-6 w-px bg-gray-200" />*/}
                     {searchToggle && (
                       <div className="text-sm font-medium text-gray-700 hover:text-gray-800">
@@ -488,24 +491,13 @@ function Header2() {
                           type="text"
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
-                          className="block w-[280px] rounded-md bg-white px-3 py-1.5 text-base text-gray-900 font-normal border placeholder:text-gray-400 focus:outline-2 focus:border-indigo-600 sm:text-sm/6"
+                          className="block w-[280px] bg-white px-3 py-1.5 text-base text-gray-900 font-normal border placeholder:text-gray-400 focus:outline-2 focus:border-indigo-600 sm:text-sm/6"
                           placeholder="Search clothes"
                         />
                       </div>
                     )}
                   </div>
 
-                  {/* <div className="hidden lg:ml-8 lg:flex">
-                  <Link to={'/'} className="flex items-center text-gray-700 hover:text-gray-800">
-                    <img
-                      alt=""
-                      src="https://tailwindui.com/plus/img/flags/flag-canada.svg"
-                      className="block h-auto w-5 shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </Link>
-                </div> */}
 
                   {/* Search */}
 
@@ -521,18 +513,29 @@ function Header2() {
                       />
                     </div>
                     <Link
-                      to={"/account"}
-                      onClick={() => setSearchToggle(!searchToggle)}
+                      to={"/login"}
                       className="p-2 text-gray-400 hover:text-gray-500"
                     >
-                      <span className="sr-only">Search</span>
-                      {/* <MagnifyingGlassIcon aria-hidden="true" className="size-6" /> */}
                       <UserIcon className="size-6" />
+                    </Link>
+                    {/* Cart */}
+                    <Link
+                      to={"/cart"}
+                      className="flex items-center p-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <ShoppingBagIcon
+                        aria-hidden="true"
+                        className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {cart.length}
+                      </span>
+                      <span className="sr-only">items in cart, view bag</span>
                     </Link>
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root lg:ml-6">
+                  {/* <div className="ml-4 flow-root">
                     <Link
                       to={"/cart"}
                       className="group -m-2 flex items-center p-2"
@@ -546,11 +549,54 @@ function Header2() {
                       </span>
                       <span className="sr-only">items in cart, view bag</span>
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </nav>
+          <div className="block md:hidden">
+                    {/* {!user && (
+                      <Link
+                        to={"/login"}
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Sign in
+                      </Link>
+                    )} */}
+                    {/* <span aria-hidden="true" className="h-6 w-px bg-gray-200" />*/}
+                    {searchToggle && (
+                      <div className="relative text-sm font-medium text-gray-700 hover:text-gray-800">
+                        <input
+                          type="text"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="block md:hidden w-full h-16 bg-white px-3 py-1.5 text-base text-gray-900 font-normal placeholder:text-gray-400 focus:outline-2 focus:border-indigo-600 sm:text-sm/6"
+                          placeholder="Search clothes"
+                        />
+                          <button onClick={()=> setSearchToggle(false)} className="p-2 absolute top-1/2 -translate-y-1/2 right-2 text-gray-700 hover:text-gray-800">
+                            <IoMdClose class="text-xl" />
+                          </button>
+                      </div>
+                    )}
+                    {searchToggle && (
+                      <div class={`${search ? 'max-h-40' : ''} overflow-scroll shadow-sm border`}>
+                        <div className="bg-gray-50 py-2">
+                          {products
+                            .filter((product) =>
+                              product.title.toLowerCase().includes(search.toLowerCase())
+                            )
+                            .map((product) => (
+                              <Link to={'/product/' + product.slug} onClick={()=> setSearchToggle(false)}>
+                                <div key={product.id} class={`flex justify-between px-3 py-1 hover:bg-gray-50 ${search ? "" : "hidden"}`}>
+                                  <div>{product.title}</div>
+                                  <div>${product.price}</div>
+                                </div>
+                              </Link>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
         </header>
       </div>
     </>

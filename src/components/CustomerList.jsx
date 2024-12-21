@@ -64,15 +64,15 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
       {users && (
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">
                   <input
                     id="checkbox-all-search"
                     type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                   />
                   <label htmlFor="checkbox-all-search" className="sr-only">
                     checkbox
@@ -104,14 +104,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               .map((user) => (
                 <tr
                   key={user.uid}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="bg-white border-b hover:bg-gray-50"
                 >
                   <td className="w-4 p-4">
                     <div className="flex items-center">
                       <input
                         id="checkbox-table-search-1"
                         type="checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                       />
                       <label
                         htmlFor="checkbox-table-search-1"
@@ -123,7 +123,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
                   </td>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     {user.name}
                   </th>
@@ -132,7 +132,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
                   <td className="px-6 py-4 flex items-center space-x-4">
                     <button
                       onClick={() => handleEdit(user)}
-                      className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out"
+                      className="flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800 transition duration-200 ease-in-out"
                     >
                       <svg
                         className="w-5 h-5 mr-2"
@@ -153,7 +153,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
 
                     <button
                       onClick={() => handleDelete(user.id)}
-                      className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out"
+                      className="flex items-center text-sm font-medium text-red-600 hover:text-red-800 transition duration-200 ease-in-out"
                     >
                       <svg
                         className="w-5 h-5 mr-2"
@@ -180,22 +180,22 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
 
       {isEditing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
+          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white shadow-lg">
+            <h1 className="text-xl font-semibold text-gray-800 mb-4 text-center">
               Edit Customer
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Name
                 </label>
                 <input
                   type="text"
                   id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="name"
                   value={editUser.name}
@@ -206,14 +206,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="email"
                   value={editUser.email}
@@ -224,14 +224,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Phone Number
                 </label>
                 <input
                   type="number"
                   id="phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="phone"
                   value={editUser.phone}
@@ -242,14 +242,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="street"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Street
                 </label>
                 <input
                   type="text"
                   id="street"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="street"
                   value={editUser.street}
@@ -260,14 +260,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="city"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   City
                 </label>
                 <input
                   type="text"
                   id="city"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="city"
                   value={editUser.city}
@@ -278,14 +278,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="state"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   State
                 </label>
                 <input
                   type="text"
                   id="state"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="state"
                   value={editUser.state}
@@ -296,14 +296,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="zip"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Zip
                 </label>
                 <input
                   type="text"
                   id="zip"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Type here..."
                   name="zip"
                   value={editUser.zip}
@@ -314,14 +314,14 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="imageURL"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Image URL
                 </label>
                 <input
                   type="url"
                   id="imageURL"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="Enter Image URL"
                   name="imageURL"
                   value={editUser.imageURL}
@@ -333,12 +333,12 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
                 >
                   Cancel
                 </button>
                 <button
-                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={handleSaveEdit}
                 >
                   Submit
@@ -352,13 +352,13 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
         className="flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
         aria-label="Table navigation"
       >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        <span className="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">
           Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900">
             1-10
           </span>{" "}
           of{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900">
             1000
           </span>
         </span>
@@ -366,7 +366,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
             >
               Previous
             </a>
@@ -374,7 +374,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               1
             </a>
@@ -382,7 +382,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               2
             </a>
@@ -391,7 +391,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
             <a
               href="#"
               aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
             >
               3
             </a>
@@ -399,7 +399,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               4
             </a>
@@ -407,7 +407,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               5
             </a>
@@ -415,7 +415,7 @@ function CustomerList({ search, users, setUsers, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
             >
               Next
             </a>

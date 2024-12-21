@@ -95,15 +95,15 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
       {products && (
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">
                   <input
                     id="checkbox-all-search"
                     type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                   />
                   <label htmlFor="checkbox-all-search" className="sr-only">
                     checkbox
@@ -139,14 +139,14 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
               .map((product) => (
                 <tr
                   key={product.id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  className="bg-white border-b hover:bg-gray-50"
                 >
                   <td className="w-4 p-4">
                     <div className="flex items-center">
                       <input
                         id="checkbox-table-search-1"
                         type="checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                       />
                       <label
                         htmlFor="checkbox-table-search-1"
@@ -167,7 +167,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                   </td>
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     {product.title}
                   </th>
@@ -176,7 +176,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                   <td className="px-6 py-4 flex items-center space-x-4">
                     <button
                       onClick={() => handleEdit(product)}
-                      className="flex items-center text-sm font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-800 dark:hover:text-indigo-300 transition duration-200 ease-in-out"
+                      className="flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800 transition duration-200 ease-in-out"
                     >
                       <svg
                         className="w-5 h-5 mr-2"
@@ -197,7 +197,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
 
                     <button
                       onClick={() => handleDelete(product.id)}
-                      className="flex items-center text-sm font-medium text-red-600 dark:text-red-500 hover:text-red-800 dark:hover:text-red-300 transition duration-200 ease-in-out"
+                      className="flex items-center text-sm font-medium text-red-600 hover:text-red-800 transition duration-200 ease-in-out"
                     >
                       <svg
                         className="w-5 h-5 mr-2"
@@ -224,21 +224,21 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
 
       {isEditing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white dark:bg-gray-800 shadow-lg">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
+          <div className="w-full min-w-[200px] max-w-2xl max-h-full m-auto rounded-md p-3 bg-white shadow-lg">
+            <h1 className="text-xl font-semibold text-gray-800 mb-4 text-center">
               Edit Product
             </h1>
             <div className="space-y-4 flex flex-col justify-center">
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Title
                 </label>
                 <input
                   id="title"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   name="title"
                   placeholder="Enter Title"
                   value={editProduct.title}
@@ -249,13 +249,13 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
               <div className="w-full min-w-[200px] px-5 py-2">
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Description
                 </label>
                 <textarea
                   id="description"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   rows={4}
                   placeholder="Enter Description"
                   name="description"
@@ -268,14 +268,14 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="price"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Price
                   </label>
                   <input
                     type="number"
                     id="price"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     name="price"
                     placeholder="Enter Price"
                     value={editProduct.price}
@@ -286,14 +286,14 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="stock"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Stock
                   </label>
                   <input
                     type="number"
                     id="stock"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     name="stock"
                     placeholder="Enter Inventory"
                     value={editProduct.stock}
@@ -304,7 +304,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="categories"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Categories
                   </label>
@@ -313,7 +313,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                     onClick={() => setCatPop(!catPop)}
                     readOnly
                     id="categories"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Select Categories"
                     value={selectedTitles.join(", ")}
                   />
@@ -324,7 +324,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                     {catPop ? "Close Category List" : "Select Categories"}
                   </button>
                   <div
-                    className={`z-10 bg-white rounded-lg shadow dark:bg-gray-700 absolute ${
+                    className={`z-10 bg-white rounded-lg shadow absolute ${
                       catPop ? "block" : "hidden"
                     }`}
                   >
@@ -335,7 +335,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                       <div className="relative">
                         <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                           <svg
-                            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                            className="w-4 h-4 text-gray-500"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -353,12 +353,12 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                         <input
                           type="text"
                           onChange={(e) => setCatSearch(e.target.value)}
-                          className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                           placeholder="Search categories"
                         />
                       </div>
                     </div>
-                    <ul className="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                    <ul className="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700">
                       {collections
                         .filter((c) =>
                           c.title
@@ -367,7 +367,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                         )
                         .map((collection, index) => (
                           <li key={index}>
-                            <div className="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <div className="flex items-center ps-2 rounded hover:bg-gray-100">
                               <input
                                 type="checkbox"
                                 checked={selectedCategories.includes(
@@ -376,9 +376,9 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                                 onChange={() =>
                                   handleCheckboxChange(collection.id)
                                 }
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                               />
-                              <span className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                              <span className="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded">
                                 {collection.title}
                               </span>
                             </div>
@@ -390,14 +390,14 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
                 <div className="w-full min-w-[200px] px-5 py-2">
                   <label
                     htmlFor="imageURL"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Image URL
                   </label>
                   <input
                     type="url"
                     id="imageURL"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Enter Image URL"
                     name="imageURL"
                     value={editProduct.imageURL}
@@ -409,13 +409,13 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
               <div className="flex justify-end m-auto gap-5 px-5 py-2">
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveEdit}
-                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                  className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Save
                 </button>
@@ -429,13 +429,13 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
         className="flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
         aria-label="Table navigation"
       >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        <span className="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">
           Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900">
             1-10
           </span>{" "}
           of{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900">
             1000
           </span>
         </span>
@@ -443,7 +443,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
             >
               Previous
             </a>
@@ -451,7 +451,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               1
             </a>
@@ -459,7 +459,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               2
             </a>
@@ -468,7 +468,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
             <a
               href="#"
               aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
             >
               3
             </a>
@@ -476,7 +476,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               4
             </a>
@@ -484,7 +484,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               5
             </a>
@@ -492,7 +492,7 @@ function ProductList({ search, formUpdate, setFormUpdate }) {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
             >
               Next
             </a>

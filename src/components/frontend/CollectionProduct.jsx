@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ProductCard from "../ProductCard";
+import ProductCard from "../frontend/ProductCard";
 import { useAuth } from "../../context/AuthContext";
 
 function  CollectionProduct() {

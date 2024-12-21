@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import {
   addDoc,
   collection,
@@ -11,14 +11,15 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "../firebase/Firebase.jsx";
+import { db } from "../../firebase/Firebase";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
-import Rating from "./frontend/Rating.jsx";
+import Rating from "./Rating.jsx";
 
 
 function ProductCard({ product }) {
   const { user, setUser } = useAuth();
+  const [wishlist, setWishlist] = useState(0);
 
   const handleCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -28,24 +29,27 @@ function ProductCard({ product }) {
     console.log("Product added successfully!");
   };
 
+  console.log(wishlist);
   return (
     <div
       // style={{ height: "500px" }}
       className="relative flex w-full flex-col bg-white border"
     >
-      <Link to={`/product/${product.slug}`} className="relative flex overflow-hidden">
+      <div className="relative flex overflow-hidden">
+        <Link to={`/product/${product.slug}`} className="relative flex overflow-hidden">
         <img
           className="object-cover w-full aspect-square"
           src={product.imageURL}
           alt="product image"
-        />
-        <button className="absolute top-0 right-0 m-2 rounded-full flex justify-center items-center bg-gray-300 text-center text-sm font-medium text-white w-6 h-6 aspect-w-1 aspect-h-1">
+          />
+          </Link>
+        <button onClick={()=> setWishlist(wishlist+1)} className="absolute top-0 right-0 m-2 rounded-full flex justify-center items-center bg-gray-300 text-center text-sm font-medium text-white w-6 h-6 aspect-w-1 aspect-h-1">
           <FaRegHeart />
         </button>
         <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
           39% OFF
         </span>
-      </Link>
+      </div>
       <div className="mt-4 px-5 pb-5">
         <Link to={`/product/${product.slug}`}>
           <h5 className=" text-base tracking-tight text-slate-900">

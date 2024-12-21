@@ -11,18 +11,22 @@ import Dashboard from "./components/Dashboard.jsx";
 import Base from "./components/Base.jsx";
 import Products from "./components/Products.jsx";
 import Customers from "./components/Customers.jsx";
+import CollectionsBack from "./components/Collections.jsx";
 import Orders from "./components/Orders.jsx";
 import Collections from "./components/frontend/Collections.jsx";
 import AllProducts from "./components/frontend/AllProducts.jsx";
-import Product from "./components/Product.jsx";
+import Product from "./components/frontend/Product.jsx";
 import Cart from "./components/frontend/Cart.jsx";
 import Account from "./components/frontend/Account.jsx";
+import Error404 from "./components/frontend/Error404.jsx";
+import Contact from "./components/frontend/Contact.jsx";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
       element: <App />,
+      // errorElement:<Error404/>,
       children: [
         {
           path: "/",
@@ -49,6 +53,10 @@ const router = createBrowserRouter(
           element: <Account/>
         },
         {
+          path: "/contact",
+          element: <Contact />,
+        },
+        {
           path: "/register",
           element: <Register />,
         },
@@ -62,6 +70,7 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <Base />,
+      // errorElement:<Error404/>,
       children: [
         {
           path: "/admin/dashboard",
@@ -73,7 +82,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/admin/collections",
-          element: <Collections />,
+          element: <CollectionsBack />,
         },
         {
           path: "/admin/customers",
